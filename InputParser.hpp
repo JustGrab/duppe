@@ -2,17 +2,25 @@
 #include <vector>
 class InputParser{
 public:
-    InputParser();
+    InputParser(int argc, char* argv[]);
     InputParser(InputParser &&) = default;
     InputParser(const InputParser &) = default;
     InputParser &operator=(InputParser &&) = default;
     InputParser &operator=(const InputParser &) = default;
     ~InputParser();
 
-    void toStringVector(int argc, char* argv[]); 
+    void printAllArgs();
     void printCommandFlags();
+    
+    int getArgCount();
 
 private:
-    std::vector<std::string> commandFlags;    
+    int argCount;
+    std::vector<std::string> args;
+    std::vector<std::string> commandFlags;
+
+    void toStringVector(int argc, char* argv[]);
+    void parseArgs();
+
 };
 
