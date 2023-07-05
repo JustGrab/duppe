@@ -18,10 +18,38 @@ void CommandHandler::handleCommands()
 {
     if(std::find(commandFlags.begin(), commandFlags.end(), "-h") != commandFlags.end())
     {
-        std::cout << "PRINT HELP MENU!";
+        printHelpMenu();
+        exit(0);
     }
-    CommandHandler::handleP("test");
+    std::vector<std::string>::iterator it = commandFlags.begin();
+    std::vector<std::string>::iterator itCopy;
+    while(it != commandFlags.end())
+    {
+        if(it->compare("-p") == 0 )
+        {
+            std::string newProjectName = getExtraArg("-p");
+            std::cout << "New project Name: " << newProjectName << std::endl;
+            handleP(newProjectName);
+        }
+        it++;
+    }
 }
+
+std::string CommandHandler::getExtraArg(std::string commandFlag)
+{
+    std::vector<std::string>::iterator extraFlag = std::find(allArgs.begin(), allArgs.end(), commandFlag);
+    if(extraFlag != allArgs.end() && extraFlag + 1 != allArgs.end())
+    { 
+        extraFlag++;
+    }
+    else
+    {
+        std::cout << "Invalid Argument " << *extraFlag << std::endl;
+        exit(0);
+    }
+    return *extraFlag; 
+}
+
 
 void CommandHandler::deleteArg(std::string, std::string)
 {
@@ -49,16 +77,15 @@ bool CommandHandler::handleP(std::string newProjectName)
         std::cout << "Preset path does not exist!" << std::endl;
         return false;
     }
-    std::cout << "Current path is: " << std::filesystem::current_path() << std::endl;
     //Attempt to create new projects directory at current spot
-    std::cout << "Attemping to create project path " << newPath << std::endl;
-    //std::filesystem::create_directory(newPath, errorCode);
     std::filesystem::copy(PRESET_PATH, newPath, std::filesystem::copy_options::recursive, errorCode);
+    
     if(errorCode)
     {
         std::cout << "ERROR! " << errorCode.message() << std::endl;
+        return false;
     }
-
+    std::cout << "Project " << newProjectName << " successfully made!" << std::endl;
     return true;
 }
 

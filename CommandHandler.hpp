@@ -23,10 +23,10 @@ private:
     std::vector<std::string> commandFlags;
     std::error_code errorCode;
 
+    std::string getExtraArg(std::string commandFlag);
     void deleteArg(std::string, std::string="");
 
     void printHelpMenu();
     bool handleP(std::string newProjectName);
     bool handleD();
 };
-
