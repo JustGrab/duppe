@@ -16,6 +16,11 @@ CommandHandler::~CommandHandler() {
 
 void CommandHandler::handleCommands()
 {
+    if(allArgs.size() == 1)
+    {
+        std::cout << "No arguments provided. Use with -h for help menu" << std::endl;
+        exit(0);
+    }
     if(std::find(commandFlags.begin(), commandFlags.end(), "-h") != commandFlags.end())
     {
         printHelpMenu();
@@ -28,9 +33,14 @@ void CommandHandler::handleCommands()
         if(it->compare("-p") == 0 )
         {
             std::string newProjectName = getExtraArg("-p");
-            std::cout << "New project Name: " << newProjectName << std::endl;
             handleP(newProjectName);
         }
+        //TODO: IMPLELEMT D OPTION
+        else if(it->compare("-d") == 0)
+        {
+            handleD();
+        }
+
         it++;
     }
 }
@@ -58,11 +68,10 @@ void CommandHandler::deleteArg(std::string, std::string)
 void CommandHandler::printHelpMenu()
 {
     //Print help menu
-    std::cout << "DUPPE" << std::endl;
-    std::cout << "=================" << std::endl;
-    std::cout << "-d : create project with one Makefile and main.cpp" << std::endl;
-    std::cout << "-p : uses preset directory located in /usr/shared/duppe/preset" << std::endl;
-    std::cout << "Always insert new project name as the last argument!" << std::endl;
+    std::cout << "\tDUPPE" << std::endl;
+    std::cout << "====================" << std::endl;
+    std::cout << "-d [project name]: create project with one Makefile and main.cpp called [project name]" << std::endl;
+    std::cout << "-p [project name]: uses preset directory located in /usr/shared/duppe/preset to create project" << std::endl;
     //TODO
     //add option to add includes and flags for librarys like sdl, raylib, asio etc...
     exit(0);
@@ -91,5 +100,5 @@ bool CommandHandler::handleP(std::string newProjectName)
 
 bool CommandHandler::handleD()
 {
-
+    std::cout << "-d not yet implemented!";
 }

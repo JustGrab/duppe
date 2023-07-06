@@ -13,6 +13,8 @@ public:
     void printCommandFlags();
     
     int getArgCount();
+    std::vector<std::string> getAllArgs();
+    std::vector<std::string> getCommandFlags();
 
 private:
     int argCount;

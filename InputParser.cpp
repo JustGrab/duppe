@@ -41,6 +41,15 @@ void InputParser::parseArgs()
 
 int InputParser::getArgCount() { return argCount; }
 
+std::vector<std::string> InputParser::getAllArgs()
+{
+    return args;
+}
+
+std::vector<std::string> InputParser::getCommandFlags()
+{
+    return commandFlags;
+}
 
 void InputParser::printAllArgs()
 {
