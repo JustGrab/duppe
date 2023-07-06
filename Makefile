@@ -2,7 +2,7 @@ CXX=g++
 
 FLAGS= -Wall -Wextra
 
-SRC= main.cpp InputParser.cpp
+SRC= main.cpp InputParser.cpp CommandHandler.cpp
 
 LIBS=
 
