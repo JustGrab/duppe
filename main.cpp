@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "InputParser.hpp"
+#include "CommandHandler.hpp"
 
 int main(int argc, char* argv[]) 
 {
@@ -14,7 +15,7 @@ int main(int argc, char* argv[])
         std::cerr << "Invalid argc, how is that even possible?" << std::endl;
     }
 
-    std::cout << "Printing command flags: " << std::endl;
-    parser.printCommandFlags();
-
+    //Begin to execute command flags
+    CommandHandler handler(parser.getAllArgs(), parser.getCommandFlags());
+    handler.handleCommands();
 }
